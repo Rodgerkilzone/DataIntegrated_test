@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Stock Value</title>
+</head>
+<body style="padding:0;margin:0">
+
+	<div style="width: 100%;background-color:#1565C0;padding:10px;color:white;font-size:18px;font-weight:bold;">Stock Values (Company X)</div>
+	<div style="padding:20px">
+<h3>Enter the stock values</h3>
+<textarea id="array_string"  placeholder='2,3,4,5,6,7' style="min-height: 80px;min-width:300px ;"></textarea>
+<br/>
+<button onclick=validate() >Validate input</button>
+<br/>
+<h4  id='days'>0 Days</h4>
+<h4  id='valid'></h4>
+<input type="number" id="buy_day" placeholder="Enter the day"><button onclick=sellingDay()>Check selling day</button>
+<h4 id='output'></h4>
+	</div>
+</body>
+<script>
+function validate() {
+	var array_string=document.getElementById('array_string').value.trim();
+	if (array_string.substring(0, 1) == "[") {
+		array_string = array_string.substring(1, array_string.length);
+	}
+
+	if (array_string.substring(array_string.length - 1, array_string.length) == "]") {
+		array_string = array_string.substring(0, array_string.length - 1)
+	}
+	
+	var array=array_string.split(",");
+	if(array_string.trim()=="") {
+document.getElementById('days').innerHTML="0 Days"
+	}else{
+document.getElementById('days').innerHTML=array.length+" Days (Day 0 - Day "+ eval(array.length-1)+")"
+	}
+	var valid_stock=true;
+	for(var i=0;i<array.length;i++){
+		if(isNaN(array[i]) || array[i]=="" || array[i]==null || typeof array[i]=="undefined"){
+			valid_stock=false;
+		}
+
+	}
+	if(valid_stock==true){
+			document.getElementById('valid').innerHTML="This is a Valid Stock Array"
+		}else{
+				document.getElementById('valid').innerHTML="This is an Invalid Stock Array"
+		}
+
+return valid_stock;
+	}
+
+	function sellingDay(){
+		if(validate()==true){
+			var array_string = document.getElementById('array_string').value.trim();
+			if(array_string.substring(0, 1)=="["){
+			array_string=array_string.substring(1, array_string.length);
+			}
+			
+			if(array_string.substring(array_string.length - 1, array_string.length)=="]"){
+				array_string=array_string.substring(0, array_string.length-1)
+			}
+
+		var array = array_string.split(",");
+		var start_day= document.getElementById('buy_day').value;
+			if (start_day >= array.length || typeof start_day == "undefined" || start_day=="" || array_string == "") {
+			document.getElementById('output').innerHTML="Invalid day"
+		}else{
+			var result=array[start_day];
+			var sell_day= start_day;
+for (let i = start_day ; i < array.length; i++) {
+
+	if(eval(result-array[i])<0){
+	result= array[i];
+	sell_day=i;
+	}
+
+}}
+			document.getElementById('output').innerHTML = result+" (Day "+ sell_day+")";
+
+			if(sell_day==start_day && array.length>0 &&  array_string != ""){
+				document.getElementById('output').innerHTML ="-1";
+			}
+			if(array.length==1  && array_string!=""){
+				document.getElementById('output').innerHTML = "0";
+			}
+
+		}else{
+
+			document.getElementById('output').innerHTML =""
+		}
+
+
+
+	}
+</script>
+</html>

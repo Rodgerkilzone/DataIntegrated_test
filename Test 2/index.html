@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Flatten Array</title>
+</head>
+
+<body style="padding:0;margin:0">
+
+    <div style="width: 100%;background-color:#4A148C;padding:10px;color:white;font-size:18px;font-weight:bold;">Flatten Array
+    </div>
+    <div style="padding:20px">
+        <h3>Enter the Array</h3>
+        <textarea id="array_string" placeholder='[1,2,[3,4,[5,6],7,[8,9]]]' style="min-height: 80px;min-width:300px ;"></textarea>
+        <br />
+        <button onclick=flatten()>Flatten array</button>
+        <br />
+        <h4 >Output: </h4>
+        <h4 id='output'></h4>
+      
+       
+    </div>
+</body>
+<script>
+    function flatten() {
+        var array_string = document.getElementById('array_string').value.trim();
+
+     
+var result="";
+        for (var i = 0; i < array_string.length; i++) {
+            if(array_string[i]!="]" && array_string[i]!="["){
+              result=result+ array_string[i]
+            }
+
+            
+        }
+     document.getElementById('output').innerHTML=result;
+     
+    }
+
+  
+</script>
+
+</html>
